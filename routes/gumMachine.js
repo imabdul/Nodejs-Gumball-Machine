@@ -4,7 +4,7 @@
 
 var mongo = require('mongodb');
 var crypto = require('crypto');
-var key = 'V77q995EZX36DDYw0OTjBpW0587i7DM4';
+var key = 'kjdfsafjsladkfjsldfjsairu304879230rueoir';
 var create_hash = function(state,ts){
 	var text = state + ts + key;
 	hmac = crypto.createHmac("sha256", key);
@@ -20,25 +20,27 @@ Db = mongo.Db,
 BSON = mongo.BSONPure;
 
 var server = new Server('ds043210.mongolab.com',43210,{auto_reconnect: true});
-db = new Db('mongolab_test', server);
+db = new Db('cmpe281_mongo', server);
 
 db.open(function(err, db) {
-	db.authenticate('root', 'password', function(err, success) {
+	db.authenticate('imabdul', 'fall2014', function(err, success) {
 		if(!err) {
-	        console.log("Connected to 'gumballdb' database");
-	        db.collection('gumball', {strict:true}, function(err, collection) {
+	        console.log("Connected to 'cmpe281_mongo' database");
+	        db.collection('GumballFactory', {strict:true}, function(err, collection) {
 	            if (err) {
 	                console.log("The 'gumballs' collection doesn't exist.");
 	            }
 	        });
 	    }
+	    else
+	                console.log("The databse doesn't exist.");
     });
     
 });
 
 exports.addMachine = function(req, res){
 	var machine = req.body;
-	db.collection('gumball', function(err, data){
+	db.collection('GumballFactory', function(err, data){
 		data.insert(machine, {safe: true}, function(err, result){
 			if (err) {
 	            res.send({'error':'Error occurred'});
@@ -51,7 +53,7 @@ exports.addMachine = function(req, res){
 }
 
 exports.listMachines = function(req, res){
-	db.collection('gumball', function(err, collection) {
+	db.collection('GumballFactory', function(err, collection) {
         collection.find().toArray(function(err, list) {
         	 res.render('listMachines', {result:list});// res.send(items);
         });
@@ -62,7 +64,7 @@ exports.listMachines = function(req, res){
 exports.getDetails = function(req, res){
 	var id = req.params.id;
 	console.log("id: " + id);
-	db.collection('gumball', function(err, collection){
+	db.collection('GumballFactory', function(err, collection){
 		collection.findOne({'_id':new BSON.ObjectID(id)}, function(err, record){
 			var state = 'No Coin';
 			var ts = new Date().getTime();
@@ -115,7 +117,7 @@ exports.updateMachine = function(req, res){
 							modelNo: input.modelNo,
 							count: input.count - 1
 					}
-				db.collection('gumball', function(err, collection){
+				db.collection('GumballFactory', function(err, collection){
 					collection.update({'_id':new BSON.ObjectID(id)}, data1, {safe:true}, function(err, result) {
 						if (err) {
 			                console.log('Error updating gumball: ' + err);
