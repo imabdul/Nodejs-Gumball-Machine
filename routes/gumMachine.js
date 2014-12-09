@@ -129,7 +129,7 @@ exports.updateMachine = function(req, res){
 				});
 				}
 				else{
-					res.render('getDetails', {result: data, ts: now, hash: create_hash(state, now), state: state, notify:'No Inventory'});
+					res.render('getDetails', {result: data, _id:id,ts: now, hash: create_hash(state, now), state: state, notify:'No Inventory'});
 				}
 		}
 	}
