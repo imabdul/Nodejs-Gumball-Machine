@@ -13,7 +13,7 @@ var express = require('express')
 var app = express();
 
 // all environments
-app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 3000)
+app.set('port', process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3000)
 app.set('ip_address', process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1')
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -35,6 +35,6 @@ app.get('/getDetails/:id', gumMachine.getDetails);
 app.post('/getDetails/:id', gumMachine.updateMachine);
 app.get('/listMachines', gumMachine.listMachines);
 
-http.createServer(app).listen(app.get('port'), function(){
+http.createServer(app).listen(app.get('port'), app.get('ip_address'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
