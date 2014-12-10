@@ -23,14 +23,13 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-// development only
+// development environment
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
 app.get('/', routes.index);
 app.get('/users', user.list);
-//app.get('/',gumMachine.addMachine);
 app.get('/getDetails/:id', gumMachine.getDetails);
 app.post('/getDetails/:id', gumMachine.updateMachine);
 app.get('/listMachines', gumMachine.listMachines);
