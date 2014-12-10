@@ -1,7 +1,7 @@
 var express = require('express')
 var http = require('http')
 var path = require('path')
-var gumMachine = require('./routes/gumMachine');
+var gumballMachine = require('./routes/gumballMachine');
 
 var app = express();
 
@@ -21,10 +21,10 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', gumMachine.listMachines);
-app.get('/getDetails/:id', gumMachine.getDetails);
-app.post('/getDetails/:id', gumMachine.updateMachine);
-app.get('/listMachines', gumMachine.listMachines);
+app.get('/', gumballMachine.gumballMachinesList);
+app.get('/machineDetails/:id', gumballMachine.machineDetails);
+app.post('/machineDetails/:id', gumballMachine.updateMachine);
+app.get('/gumballMachinesList', gumballMachine.gumballMachinesList);
 
 http.createServer(app).listen(app.get('port'), app.get('ip_address'),function(){
   console.log('Express server listening on port ' + app.get('port'));

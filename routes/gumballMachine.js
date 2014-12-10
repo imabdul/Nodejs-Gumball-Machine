@@ -52,16 +52,16 @@ exports.addMachine = function(req, res){
 	});
 }
 
-exports.listMachines = function(req, res){
+exports.gumballMachinesList = function(req, res){
 	db.collection('GumballFactory', function(err, collection) {
         collection.find().toArray(function(err, list) {
-        	 res.render('listMachines', {result:list});// res.send(items);
+        	 res.render('gumballMachinesList', {result:list});
         });
     });
 }
 
 
-exports.getDetails = function(req, res){
+exports.machineDetails = function(req, res){
 	var id = req.params.id;
 	console.log("id: " + id);
 	db.collection('GumballFactory', function(err, collection){
@@ -69,7 +69,7 @@ exports.getDetails = function(req, res){
 			var state = 'No Coin';
 			var ts = new Date().getTime();
 			var hash= create_hash(state, ts);
-			res.render('getDetails',{result: record, _id:id, state: state, hash: hash, ts: ts, notify: 'Please insert coin'});
+			res.render('machineDetails',{result: record, _id:id, state: state, hash: hash, ts: ts, notify: 'Please insert coin'});
 		});
 	});
 }
@@ -94,21 +94,21 @@ exports.updateMachine = function(req, res){
 	console.log(data);
 	
 	if(diff>120){
-		res.render('getDetails', {result: data, _id:id, state:state, ts:now,hash: hash, notify: 'Invalid Session'});
+		res.render('machineDetails', {result: data, _id:id, state:state, ts:now,hash: hash, notify: 'Invalid Session'});
 	}
 	if(activity == "Insert Quarter"){
 		if(state == "No Coin"){
 			var newState = "Has Coin";
 			var newHash = create_hash(state, now);
-			res.render('getDetails', {result: data, _id:id, state:newState, ts:now, hash: newHash, notify:'Coin Inserted'});
+			res.render('machineDetails', {result: data, _id:id, state:newState, ts:now, hash: newHash, notify:'Coin Inserted'});
 		}
 		else{
-			res.render('getDetails', {result: data, _id:id, state:state, ts:now, hash: create_hash(state,now), notify:'Coin already Inserted'});
+			res.render('machineDetails', {result: data, _id:id, state:state, ts:now, hash: create_hash(state,now), notify:'Coin already Inserted'});
 		}
 	}
 	else{
 		if(state == "No Coin"){
-			res.render('getDetails', {result: data, _id:id, state:state,ts:now, hash: create_hash(state, now), notify:'Please Insert Coin'});
+			res.render('machineDetails', {result: data, _id:id, state:state,ts:now, hash: create_hash(state, now), notify:'Please Insert Coin'});
 		}
 		else if(state == "Has Coin"){
 				if(input.count>0){
@@ -125,13 +125,13 @@ exports.updateMachine = function(req, res){
 			            } 
 						else {
 			                console.log('' + result + ' document(s) updated');
-			                res.render('getDetails', {result:data1, _id:id, ts:now, hash: create_hash('No Coin', now), state:'No Coin', notify:'Enjoy your gumball'});
+			                res.render('machineDetails', {result:data1, _id:id, ts:now, hash: create_hash('No Coin', now), state:'No Coin', notify:'Enjoy your gumball'});
 			            }
 					});
 				});
 				}
 				else{
-					res.render('getDetails', {result: data, _id:id,ts: now, hash: create_hash(state, now), state: state, notify:'No Inventory'});
+					res.render('machineDetails', {result: data, _id:id,ts: now, hash: create_hash(state, now), state: state, notify:'No Inventory'});
 				}
 		}
 	}
