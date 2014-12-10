@@ -2,16 +2,15 @@
   "name": "GumballMongo",
   "version": "0.0.1",
   "private": true,
-  "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node app.js"
   },
   "dependencies": {
-    "express": "*",
-    "ejs": "*"
+    "express": "3.2.6",
+    "ejs": "*",
     "fs" : "*",
     "node-rest-client" : "*",
-    "crypto" : "*"
+    "crypto" : "*",
     "async": "*",
     "http": "*",
     "path": "*",
