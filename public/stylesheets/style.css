@@ -102,12 +102,12 @@ ol li
 #logo
 { width: 950px;
   float: left;
-  height: 80px;
+  height: 75px;
   background: transparent;
   padding: 0 0 0px 10px;}
 
 #logo h1
-{ font: normal 350% 'Yanone Kaffeesatz', arial, sans-serif;
+{ font: normal 300% 'Yanone Kaffeesatz', arial, sans-serif;
   padding: 5px 0 0 17px;
   color: #555;
   float: left;}
@@ -176,14 +176,14 @@ ul#menu li a:hover
   border: 1px solid #E7E7E7;} 
   
 #submit {
- color: #000;
+ color: #FFFFFF ;
  font-size: 15px;
  width: 125px;
  height: 30px;
  border: 1px solid #E7E7E7;
  margin: 0;
  padding: 0;
- background: #00ffff 0 0 no-repeat; 
+ background: #585858 0 0 no-repeat; 
 }
 
 #sidebar_container
